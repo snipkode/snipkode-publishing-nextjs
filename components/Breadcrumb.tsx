@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 interface BreadcrumbProps {
@@ -7,6 +7,10 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ title }) => {
     const pathname = usePathname();
+
+    useEffect(() => {
+        document.title = title;
+    }, [title]);
 
     const generateBreadcrumbs = () => {
         const pathArray = pathname.split('/').filter((path) => path);
