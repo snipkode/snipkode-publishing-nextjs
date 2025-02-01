@@ -52,7 +52,7 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
                 </div>
             </div>
 
-            <div className="table-responsive">
+            <div className="table-responsive max-h-96 overflow-y-auto">
                 <table className="w-full border-collapse min-w-[800px]">
                     <thead>
                         <tr className="bg-gray-50">
