@@ -38,11 +38,15 @@ const Home = () => {
               </button>
             </div>
             <div className="mt-12">
-              <img 
-                src="/api/placeholder/800/400" 
-                alt="Platform Preview" 
-                className="w-full rounded-xl shadow-2xl" 
-              />
+              <div className="relative w-full max-w-4xl mx-auto min-h-[600px] bg-gray-200 rounded-xl shadow-inner overflow-hidden">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-gray-300 rounded-b-lg"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gray-400 rounded-b-lg"></div>
+                <img 
+                  src="/api/placeholder/800/400" 
+                  alt="Platform Preview" 
+                  className="relative w-full h-full object-cover rounded-xl shadow-2xl border-8 border-gray-200" 
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -125,7 +129,7 @@ const Home = () => {
                 },
                 {
                   title: "Premium",
-                  description: "RpXX.XXX/bulan untuk akses penuh",
+                  description: "Rp650.000/bulan untuk akses penuh",
                   icon: "diamond",
                   featured: true
                 },
