@@ -1,3 +1,4 @@
+"use client";
 import { create } from 'zustand';
 import { supabase } from '@/utils/supabaseClient';
 
@@ -27,24 +28,25 @@ const useDashboardStore = create<DashboardStore>((set) => ({
         onlineUsers: 0,
     },
     fetchStats: async () => {
-        const { data: totalBooks } = await supabase.rpc('admin_get_total_books');
-        const { data: totalPublishers } = await supabase.rpc('admin_get_total_publishers');
-        const { data: totalUsers } = await supabase.rpc('admin_get_total_users');
-        const { data: totalSales } = await supabase.rpc('admin_get_total_sales');
-        const { data: platformBalance } = await supabase.rpc('platform_total_balance');
-        const { data: estimatedRevenue } = await supabase.rpc('author_get_total_revenue_year', { user_id: 'user-id' });
+        const { data: total_books } = await supabase.rpc('admin_get_total_books');
+        const { data: total_publishers } = await supabase.rpc('admin_get_total_publishers');
+        const { data: total_users } = await supabase.rpc('admin_get_total_users');
+        const { data: total_sales } = await supabase.rpc('admin_get_total_sales');
+        const { data: total_unwithdrawn_balance } = await supabase.rpc('total_unwithdrawn_balance');
+        const { data: total_revenue } = await supabase.rpc('total_withdrawn_balance');
 
-        set({
+        set((state) => ({
             stats: {
-                totalBooks: totalBooks[0]?.total_books || 0,
-                totalPublishers: totalPublishers[0]?.total_publishers || 0,
-                totalUsers: totalUsers[0]?.total_users || 0,
-                totalSales: totalSales[0]?.total_sales || 0,
-                platformBalance: platformBalance[0]?.total_balance || 0,
-                estimatedRevenue: estimatedRevenue[0]?.total_revenue || 0,
+                ...state.stats,
+                totalBooks: total_books[0]?.total_books || 0,
+                totalPublishers: total_publishers[0]?.total_publishers || 0,
+                totalUsers: total_users[0]?.total_users || 0,
+                totalSales: total_sales[0]?.total_sales || 0,
+                platformBalance: total_unwithdrawn_balance[0]?.total_balance || 0,
+                estimatedRevenue: total_revenue[0]?.total_revenue || 0,
                 onlineUsers: 0, // This should be fetched from a real-time source
             },
-        });
+        }));
     },
 }));
 

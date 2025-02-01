@@ -254,7 +254,7 @@ returns table(total_books int)
 language plpgsql as $$
 begin
     return query
-    select count(*) as total_books from books;
+    select count(*)::int as total_books from books;
 end;
 $$;
 
@@ -265,7 +265,7 @@ returns table(total_publishers int)
 language plpgsql as $$
 begin
     return query
-    select count(*) as total_publishers from publishers;
+    select count(*)::int as total_publishers from publishers;
 end;
 $$;
 
@@ -276,7 +276,7 @@ returns table(total_users int)
 language plpgsql as $$
 begin
     return query
-    select count(*) as total_users from users;
+    select count(*)::int as total_users from users;
 end;
 $$;
 
@@ -287,7 +287,7 @@ returns table(total_sales int)
 language plpgsql as $$
 begin
     return query
-    select count(*) as total_sales from sales;
+    select count(*)::int as total_sales from sales;
 end;
 $$;
 
