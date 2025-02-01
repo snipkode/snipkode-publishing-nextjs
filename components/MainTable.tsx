@@ -15,7 +15,7 @@ interface MainTableProps {
     itemsPerPage?: number;
 }
 
-const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 }) => {
+const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 5 }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const [itemsPerPageState, setItemsPerPageState] = useState(itemsPerPage);
