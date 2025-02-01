@@ -15,29 +15,31 @@ const Home = () => {
     <>
       <header className="sticky top-0 bg-white shadow-md z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="text-2xl font-bold text-blue-600">
+          <div className="text-2xl font-bold text-blue-600 flex items-center">
             <Link href="/" className="flex items-center">
               <span className="material-icons mr-2">menu_book</span>
               <span className="text-xl">SK Publishing</span>
             </Link>
           </div>
-          {!isAuthenticated && !loading ? ( 
-            <div className="space-x-4 flex items-center">
-              <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
-                <span className="material-icons mr-1">person_add</span>
-                <span className="text-base">Mendaftar</span>
+          <div className="space-x-4 flex items-center">
+            {!isAuthenticated && !loading ? (
+              <>
+                <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                  <span className="material-icons mr-1">person_add</span>
+                  <span className="text-base">Mendaftar</span>
+                </Link>
+                <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                  <span className="material-icons mr-1">login</span>
+                  <span className="text-base">Masuk</span>
+                </Link>
+              </>
+            ) : (
+              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                <span className="material-icons mr-1">dashboard</span>
+                <span className="text-base">Dashboard Saya</span>
               </Link>
-              <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
-                <span className="material-icons mr-1">login</span>
-                <span className="text-base">Masuk</span>
-              </Link>
-            </div>
-          ) : (
-            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
-              <span className="material-icons mr-1">dashboard</span>
-              <span className="text-base">Dashboard Saya</span>
-            </Link>
-          )}
+            )}
+          </div>
         </div>
       </header>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -54,12 +56,12 @@ const Home = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/dashboard">
-                <button className="group px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">
+                <button className="group w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">
                   Terbitkan Sekarang
                   <span className="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </button>
               </Link>
-              <button onClick={scrollToPricing} className="group px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center border border-blue-200">
+              <button onClick={scrollToPricing} className="group w-full sm:w-auto px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center border border-blue-200">
                 Mulai Berlangganan
                 <span className="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </button>
