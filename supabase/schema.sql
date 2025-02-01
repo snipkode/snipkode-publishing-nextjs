@@ -114,6 +114,7 @@ create table documents (
 create table royalty_history (
     id uuid primary key default uuid_generate_v4(), -- ID unik untuk setiap riwayat royalti
     sale_id uuid references sales(id), -- ID penjualan yang terkait
+    book_id uuid references books(id), -- ID buku yang terkait
     user_id uuid references users(id), -- ID pengguna yang menerima royalti
     amount numeric not null, -- Jumlah royalti
     created_at timestamp with time zone default now() -- Tanggal dan waktu pembuatan riwayat royalti
@@ -144,10 +145,10 @@ begin
     insert into royalties (user_id, book_id, amount, created_at) values (author_id, book_id, author_fee, now());
 
     -- Masukkan riwayat royalti ke tabel royalty_history
-    insert into royalty_history (sale_id, user_id, amount, created_at) values (sale_id, author_id, author_fee, now());
-    insert into royalty_history (sale_id, user_id, amount, created_at) values (sale_id, publisher_id, publisher_fee, now());
-    insert into royalty_history (sale_id, user_id, amount, created_at) values (sale_id, editor_id, editor_fee, now());
-    insert into royalty_history (sale_id, user_id, amount, created_at) values (sale_id, 'ID-APL-00001', admin_fee, now()); -- Ganti 'admin-id' dengan ID admin sebenarnya
+    insert into royalty_history (sale_id, book_id, user_id, amount, created_at) values (sale_id, book_id, author_id, author_fee, now());
+    insert into royalty_history (sale_id, book_id, user_id, amount, created_at) values (sale_id, book_id, publisher_id, publisher_fee, now());
+    insert into royalty_history (sale_id, book_id, user_id, amount, created_at) values (sale_id, book_id, editor_id, editor_fee, now());
+    insert into royalty_history (sale_id, book_id, user_id, amount, created_at) values (sale_id, book_id, 'ID-APL-00001', admin_fee, now()); -- Ganti 'admin-id' dengan ID admin sebenarnya
 end;
 $$;
 

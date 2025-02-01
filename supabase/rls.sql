@@ -30,9 +30,9 @@ alter table book_contributors enable row level security;
 create policy "Allow access to related book contributors" on book_contributors
   for select using (
     auth.uid() = user_id or
-    auth.uid() in (select author_id from books where books.id = book_id) or
-    auth.uid() in (select publisher_id from books where books.id = book_id) or
-    auth.uid() in (select editor_id from books where books.id = book_id)
+    auth.uid() in (select author_id from books where books.id = book_contributors.book_id) or
+    auth.uid() in (select publisher_id from books where books.id = book_contributors.book_id) or
+    auth.uid() in (select editor_id from books where books.id = book_contributors.book_id)
   );
 
 -- Enable RLS for the sales table
@@ -41,8 +41,8 @@ alter table sales enable row level security;
 -- Create policy for sales table
 create policy "Allow access to related sales" on sales
   for select using (
-    auth.uid() in (select author_id from books where books.id = book_id) or
-    auth.uid() in (select publisher_id from books where books.id = book_id) or
+    auth.uid() in (select author_id from books where books.id = sales.book_id) or
+    auth.uid() in (select publisher_id from books where books.id = sales.book_id) or
     auth.uid() = user_id
   );
 
@@ -52,8 +52,8 @@ alter table royalties enable row level security;
 -- Create policy for royalties table
 create policy "Allow access to related royalties" on royalties
   for select using (
-    auth.uid() in (select author_id from books where books.id = book_id) or
-    auth.uid() in (select publisher_id from books where books.id = book_id) or
+    auth.uid() in (select author_id from books where books.id = royalties.book_id) or
+    auth.uid() in (select publisher_id from books where books.id = royalties.book_id) or
     auth.uid() = user_id
   );
 
@@ -70,7 +70,7 @@ alter table royalty_history enable row level security;
 -- Create policy for royalty_history table
 create policy "Allow access to related royalty history" on royalty_history
   for select using (
-    auth.uid() in (select author_id from books where books.id = book_id) or
-    auth.uid() in (select publisher_id from books where books.id = book_id) or
+    auth.uid() in (select author_id from books where books.id = royalty_history.book_id) or
+    auth.uid() in (select publisher_id from books where books.id = royalty_history.book_id) or
     auth.uid() = user_id
   );
