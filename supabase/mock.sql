@@ -2,19 +2,22 @@
 insert into roles (id, name) values
     (uuid_generate_v4(), 'penulis'),
     (uuid_generate_v4(), 'penerbit'),
-    (uuid_generate_v4(), 'editor');
+    (uuid_generate_v4(), 'editor'),
+    (uuid_generate_v4(), 'admin');  -- Added admin role
 
--- Insert dummy data into users table
+-- Insert dummy data into users table with hashed passwords
 insert into users (id, email, password, role_id) values
-    (uuid_generate_v4(), 'penulis1@example.com', 'password1', (select id from roles where name = 'penulis')),
-    (uuid_generate_v4(), 'penerbit1@example.com', 'password2', (select id from roles where name = 'penerbit')),
-    (uuid_generate_v4(), 'editor1@example.com', 'password3', (select id from roles where name = 'editor'));
+    (uuid_generate_v4(), 'penulis1@example.com', crypt('password1', gen_salt('bf')), (select id from roles where name = 'penulis')),
+    (uuid_generate_v4(), 'penerbit1@example.com', crypt('password2', gen_salt('bf')), (select id from roles where name = 'penerbit')),
+    (uuid_generate_v4(), 'editor1@example.com', crypt('password3', gen_salt('bf')), (select id from roles where name = 'editor')),
+    (uuid_generate_v4(), 'admin1@example.com', crypt('password4', gen_salt('bf')), (select id from roles where name = 'admin'));  -- Added admin user
 
 -- Insert dummy data into user_details table
 insert into user_details (user_id, full_name, date_of_birth, address, phone_number, identity_number) values
     ((select id from users where email = 'penulis1@example.com'), 'Penulis One', '1990-01-01', 'Address 1', '1234567890', 'ID123456'),
     ((select id from users where email = 'penerbit1@example.com'), 'Penerbit One', '1985-02-02', 'Address 2', '0987654321', 'ID654321'),
-    ((select id from users where email = 'editor1@example.com'), 'Editor One', '1980-03-03', 'Address 3', '1122334455', 'ID112233');
+    ((select id from users where email = 'editor1@example.com'), 'Editor One', '1980-03-03', 'Address 3', '1122334455', 'ID112233'),
+    ((select id from users where email = 'admin1@example.com'), 'Admin One', '1975-04-04', 'Address 4', '5566778899', 'ID445566');  -- Added admin user details
 
 -- Insert dummy data into publishers table
 insert into publishers (id, name, email, created_by) values
