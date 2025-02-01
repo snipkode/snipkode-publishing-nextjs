@@ -34,7 +34,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className="h-full flex bg-gray-100">
             <Sidebar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
             <main className="flex-1">
-            {loading && <LoadingScreen />}
+            {loading && <LoadingScreen message={'Authorization Checking...'} />}
                 <Header toggleSidebar={toggleSidebar} />
                 {children}
             </main>
