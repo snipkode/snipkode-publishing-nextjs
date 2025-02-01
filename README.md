@@ -128,7 +128,8 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
         sale_date timestamp with time zone default now(), -- Tanggal dan waktu penjualan
         amount numeric not null, -- Jumlah penjualan
         midtrans_order_id text not null, -- ID pesanan Midtrans
-        midtrans_transaction_status text not null -- Status transaksi Midtrans
+        midtrans_transaction_status text not null, -- Status transaksi Midtrans
+        midtrans_transaction_token text not null -- Token transaksi Midtrans
     );
 
     -- Tabel PagePermissions untuk menyimpan izin akses halaman buku
@@ -375,6 +376,23 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
         where user_id = author_get_total_revenue_year.user_id
         group by extract(year from sale_date)
         order by year;
+    end;
+    $$;
+
+    -- Stored Procedure untuk memeriksa izin akses halaman buku berdasarkan user_id dan book_id
+    -- Usage: SELECT * FROM check_page_permission('user-id', 'book-id', page_number);
+    create or replace function check_page_permission(user_id uuid, book_id uuid, page_number int)
+    returns table(has_permission boolean)
+    language plpgsql as $$
+    begin
+        return query
+        select exists (
+            select 1
+            from page_permissions
+            where user_id = check_page_permission.user_id
+            and book_id = check_page_permission.book_id
+            and page_number = check_page_permission.page_number
+        ) as has_permission;
     end;
     $$;
     ```
