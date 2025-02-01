@@ -23,7 +23,7 @@ const Dashboard = () => {
         fetchUser();
     }, [router]);
 
-    if (!user) return <div>Loading...</div>;
+    // if (!user) return <div>Loading...</div>;
 
     return (
         <DashboardLayout>

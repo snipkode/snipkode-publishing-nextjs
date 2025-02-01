@@ -35,7 +35,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
                 <Header toggleSidebar={toggleSidebar} />
                 {children}
             </main>
-            <div id="overlay" className={`fixed inset-0 bg-black transition-opacity z-20 ${!isSidebarCollapsed ? 'opacity-50' : 'opacity-0 pointer-events-none'}`} onClick={toggleSidebar}></div>
+            <div id="overlay" className={`fixed inset-0 bg-black transition-opacity z-20 ${isSidebarCollapsed ? 'opacity-50' : 'opacity-0 pointer-events-none'}`} onClick={toggleSidebar}></div>
         </div>
     );
 };
