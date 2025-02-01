@@ -19,6 +19,7 @@ const MainContentContainer: React.FC<MainContentContainerProps> = ({ title, butt
                     {buttonText}
                 </button>
             </div>
+            
             <div className="overflow-auto">
                 {children}
             </div>

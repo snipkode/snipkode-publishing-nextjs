@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-
 import { ReactNode } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import LoadingScreen from './LoadingScreen';
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const { loading } = useAuth();
 
     useEffect(() => {
         const updateSidebarState = () => {
@@ -32,6 +34,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className="h-full flex bg-gray-100">
             <Sidebar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
             <main className="flex-1">
+            {loading && <LoadingScreen />}
                 <Header toggleSidebar={toggleSidebar} />
                 {children}
             </main>
