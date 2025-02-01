@@ -19,7 +19,7 @@ const Register = () => {
         } else {
             // Save user role in a separate table
             await supabase.from('profiles').insert([{ email, role }]);
-            router.push('/auth/login');
+            router.push('/dashboard');
         }
     };
 

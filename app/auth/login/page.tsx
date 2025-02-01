@@ -15,7 +15,7 @@ const Login = () => {
         if (error) {
             setError(error.message);
         } else {
-            router.push('/blogs');
+            router.push('/dashboard');
         }
     };
 
