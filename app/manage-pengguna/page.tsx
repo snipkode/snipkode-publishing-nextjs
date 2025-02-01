@@ -16,7 +16,7 @@ const ManagePengguna = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     if (loading) return <LoadingScreen message={'Fetching Pengguna...'}/>;
-    if (error) return <LoadingScreen message={`${error}`}/>;
+    if (error) return <LoadingScreen message={`${(error as unknown as Error).message}`} />;
 
     const columns = [
         { header: "No", accessor: (row: any, index: number) => index + 1 },

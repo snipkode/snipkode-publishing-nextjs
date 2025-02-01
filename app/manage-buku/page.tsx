@@ -8,12 +8,13 @@ import Breadcrumb from '@/components/Breadcrumb';
 import MainContentContainer from '@/components/MainContentContainer';
 import MainTable from '@/components/MainTable';
 import Popup from '@/components/Popup';
-import useFetchBooks from '@/hooks/useFetchBooks';
+import useBooks from '@/hooks/useBooks';
 import LoadingScreen from '@/components/LoadingScreen';
 
 const ManageBuku = () => {
-    const { books, loading, error } = useFetchBooks();
+    const { books, loading, error, createBook } = useBooks();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [newBook, setNewBook] = useState({ title: '', authorId: '', publisherId: '', editorId: '' });
 
     const columns = [
         { header: "No", accessor: (row: any, index: number) => index + 1 },
@@ -31,8 +32,19 @@ const ManageBuku = () => {
         setIsPopupOpen(false);
     };
 
-    if (loading) return <LoadingScreen message={'Fetching Buku..'}/>;
-    if (error) return <LoadingScreen message={`${error}`}/>;
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setNewBook({ ...newBook, [name]: value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await createBook(newBook.title, newBook.authorId, newBook.publisherId, newBook.editorId);
+        setIsPopupOpen(false);
+    };
+
+    if (loading) return <LoadingScreen message={'Fetching Buku..'} />;
+    if (error) return <LoadingScreen message={`${(error as unknown as Error).message}`} />;
 
     return (
         <DashboardLayout>
@@ -43,8 +55,40 @@ const ManageBuku = () => {
                 </MainContentContainer>
                 {isPopupOpen && (
                     <Popup title="Add New Book" onClose={handleClosePopup}>
-                        <form>
-                            {/* ...existing code... */}
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                name="title"
+                                value={newBook.title}
+                                onChange={handleInputChange}
+                                placeholder="Title"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="authorId"
+                                value={newBook.authorId}
+                                onChange={handleInputChange}
+                                placeholder="Author ID"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="publisherId"
+                                value={newBook.publisherId}
+                                onChange={handleInputChange}
+                                placeholder="Publisher ID"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="editorId"
+                                value={newBook.editorId}
+                                onChange={handleInputChange}
+                                placeholder="Editor ID"
+                                required
+                            />
+                            <button type="submit">Create Book</button>
                         </form>
                     </Popup>
                 )}

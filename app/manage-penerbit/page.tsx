@@ -34,7 +34,7 @@ const ManagePenerbit = () => {
     };
 
     if (loading) return <LoadingScreen message={'Fetching Penerbit..'}/>;
-    if (error) return <LoadingScreen message={`${error}`}/>;
+    if (error) return <LoadingScreen message={`${(error as unknown as Error).message}`} />;;
 
     return (
         <DashboardLayout>
