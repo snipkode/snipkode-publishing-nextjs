@@ -8,23 +8,15 @@ import Breadcrumb from '@/components/Breadcrumb';
 import MainContentContainer from '@/components/MainContentContainer';
 import MainTable from '@/components/MainTable';
 import Popup from '@/components/Popup';
+import useFetchUsers from '@/hooks/useFetchUsers';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const ManagePengguna = () => {
-    const [users, setUsers] = useState<any[]>([]);
+    const { users, loading, error } = useFetchUsers();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    useEffect(() => {
-        // Mock data for users
-        const mockUsers = Array.from({ length: 40 }, (_, index) => ({
-            id: index + 1,
-            name: `User ${index + 1}`,
-            email: `user${index + 1}@example.com`,
-            created_at: `2023-01-${String(index + 1).padStart(2, '0')}`,
-            created_by: "Admin",
-            status: index % 2 === 0 ? "Active" : "Inactive"
-        }));
-        setUsers(mockUsers);
-    }, []);
+    if (loading) return <LoadingScreen message={'Fetching Pengguna...'}/>;
+    if (error) return <LoadingScreen message={`${error}`}/>;
 
     const columns = [
         { header: "No", accessor: (row: any, index: number) => index + 1 },

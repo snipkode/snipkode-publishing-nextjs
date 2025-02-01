@@ -10,31 +10,19 @@ import Breadcrumb from '@/components/Breadcrumb';
 import MainContentContainer from '@/components/MainContentContainer';
 import MainTable from '@/components/MainTable';
 import Popup from '@/components/Popup';
+import useFetchPublishers from '@/hooks/useFetchPublishers';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const ManagePenerbit = () => {
-    const [publishers, setPublishers] = useState<any[]>([]);
+    const { publishers, loading, error } = useFetchPublishers();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    useEffect(() => {
-        // Mock data for publishers
-        const mockPublishers = Array.from({ length: 40 }, (_, index) => ({
-            id: index + 1,
-            name: `Publisher ${index + 1}`,
-            published: index % 2 === 0,
-            created_at: `2023-01-${String(index + 1).padStart(2, '0')}`,
-            created_by: "Admin",
-            status: index % 2 === 0 ? "Active" : "Inactive"
-        }));
-        setPublishers(mockPublishers);
-    }, []);
 
     const columns = [
         { header: "No", accessor: (row: any, index: number) => index + 1 },
         { header: "Nama Penerbit", accessor: "name" },
-        { header: "Published", accessor: (row: any) => row.published ? 'Yes' : 'No' },
+        { header: "Email", accessor: "email" },
         { header: "Tanggal Dibuat", accessor: (row: any) => new Date(row.created_at).toLocaleDateString() },
-        { header: "Dibuat Oleh", accessor: "created_by" },
-        { header: "Status", accessor: "status", className: "text-center w-32" }
+        { header: "Dibuat Oleh", accessor: "created_by" }
     ];
 
     const handleAddNewClick = () => {
@@ -44,6 +32,9 @@ const ManagePenerbit = () => {
     const handleClosePopup = () => {
         setIsPopupOpen(false);
     };
+
+    if (loading) return <LoadingScreen message={'Fetching Penerbit..'}/>;
+    if (error) return <LoadingScreen message={`${error}`}/>;
 
     return (
         <DashboardLayout>
