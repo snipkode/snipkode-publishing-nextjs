@@ -397,6 +397,42 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
     $$;
     ```
 
+#### Implementasi RLS
+
+Analisis tabel-tabel yang mungkin memerlukan RLS dan alasan di baliknya:
+
+- **users**:
+  - **Alasan**: Data pengguna seperti email dan password sangat sensitif dan harus dibatasi aksesnya hanya untuk admin atau pengguna itu sendiri.
+  - **RLS**: Batasi akses hanya untuk admin dan pengguna itu sendiri.
+
+- **user_details**:
+  - **Alasan**: Informasi pribadi pengguna seperti nama lengkap, tanggal lahir, alamat, nomor telepon, dan nomor identitas sangat sensitif.
+  - **RLS**: Batasi akses hanya untuk admin dan pengguna itu sendiri.
+
+- **books**:
+  - **Alasan**: Informasi buku mungkin perlu dibatasi aksesnya hanya untuk penulis, penerbit, dan editor yang terkait.
+  - **RLS**: Batasi akses hanya untuk penulis, penerbit, dan editor yang terkait.
+
+- **book_contributors**:
+  - **Alasan**: Informasi kontributor buku mungkin perlu dibatasi aksesnya hanya untuk penulis, penerbit, dan editor yang terkait.
+  - **RLS**: Batasi akses hanya untuk penulis, penerbit, dan editor yang terkait.
+
+- **sales**:
+  - **Alasan**: Informasi penjualan buku mungkin perlu dibatasi aksesnya hanya untuk penulis, penerbit, dan admin.
+  - **RLS**: Batasi akses hanya untuk penulis, penerbit, dan admin.
+
+- **royalties**:
+  - **Alasan**: Informasi royalti penjualan buku mungkin perlu dibatasi aksesnya hanya untuk penulis, penerbit, dan admin.
+  - **RLS**: Batasi akses hanya untuk penulis, penerbit, dan admin.
+
+- **documents**:
+  - **Alasan**: Informasi dokumen yang diunggah mungkin perlu dibatasi aksesnya hanya untuk pengguna yang mengunggah dokumen dan admin.
+  - **RLS**: Batasi akses hanya untuk pengguna yang mengunggah dokumen dan admin.
+
+- **royalty_history**:
+  - **Alasan**: Informasi riwayat pembagian royalti mungkin perlu dibatasi aksesnya hanya untuk penulis, penerbit, dan admin.
+  - **RLS**: Batasi akses hanya untuk penulis, penerbit, dan admin.
+
 #### Midtrans
 
 1. Buat akun Midtrans dan proyek baru.
