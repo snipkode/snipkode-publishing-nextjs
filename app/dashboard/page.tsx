@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabaseClient';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { User } from '@supabase/supabase-js';
 import withAuth from '@/middleware/withAuth';
 import DashboardLayout from '@/components/DashboardLayout';
 import Breadcrumb from '@/components/Breadcrumb';
+import Link from 'next/link';
 
 const Dashboard = () => {
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
-    const pathname = usePathname();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -39,7 +40,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-3xl font-bold">12</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
 
@@ -51,7 +52,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-3xl font-bold">26</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
 
@@ -63,7 +64,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-3xl font-bold">503</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
                 </div>
@@ -78,7 +79,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-3xl font-bold">2331</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
 
@@ -90,7 +91,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-2xl font-bold">Rp 230.000.000</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
 
@@ -102,7 +103,7 @@ const Dashboard = () => {
                         </div>
                         <p className="text-2xl font-bold">Rp 15.000.000</p>
                         <div className="flex justify-end mt-4">
-                            <a href="#" className="text-sm hover:underline">Lihat Detail</a>
+                            <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
                     </div>
                 </div>

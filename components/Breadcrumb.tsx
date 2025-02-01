@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 

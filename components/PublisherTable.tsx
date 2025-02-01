@@ -1,6 +1,15 @@
 import React from 'react';
 
-const PublisherTable: React.FC<{ publishers: any[] }> = ({ publishers }) => {
+interface Publisher {
+    id: number;
+    name: string;
+    published: boolean;
+    created_at: string;
+    created_by: string;
+    status: string;
+}
+
+const PublisherTable: React.FC<{ publishers: Publisher[] }> = ({ publishers }) => {
     return (
         <>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
