@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
     const isDesktop = breakpoint === 'desktop';
 
     return (
-        <aside id="sidebar" className={`sidebar fixed md:relative w-20 lg:w-64 h-screen bg-[#1a1464] text-white z-30 transform ${isCollapsed ? '-translate-x-full md:translate-x-0' : 'translate-x-0'} transition-transform duration-300`}>
+        <aside id="sidebar"  className={`sidebar z-100 fixed md:relative w-20 lg:w-64 h-screen bg-[#1a1464] text-white z-30 transform ${isCollapsed ? '-translate-x-full md:translate-x-0' : 'translate-x-0'} transition-transform duration-300`}>
             <div className="flex flex-col h-full">
                 <div className="p-4 flex justify-between items-center">
                     <h1 className="text-xl font-bold px-2 lg:block">{isMobile || isTablet ? 'SP' : 'Snipkode Publishing'}</h1>
