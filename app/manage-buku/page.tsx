@@ -6,10 +6,11 @@ import DashboardLayout from '@/components/DashboardLayout';
 import Breadcrumb from '@/components/Breadcrumb';
 import MainContentContainer from '@/components/MainContentContainer';
 import MainTable from '@/components/MainTable';
+import Popup from '@/components/Popup';
 
 const ManageBuku = () => {
-
     const [books, setBooks] = useState<any[]>([]);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     useEffect(() => {
         // Mock data for books
@@ -35,13 +36,73 @@ const ManageBuku = () => {
         { header: "Status", accessor: "status", className: "text-center w-32" }
     ];
 
+    const handleAddNewClick = () => {
+        setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+        setIsPopupOpen(false);
+    };
+
     return (
         <DashboardLayout>
             <div className="p-4 sm:p-6">
                 <Breadcrumb title={"Manage Buku"} />
-                <MainContentContainer title="Manage Buku" buttonText="Add New">
+                <MainContentContainer title="Manage Buku" buttonText="Add New" onButtonClick={handleAddNewClick}>
                     <MainTable data={books} columns={columns} />
                 </MainContentContainer>
+                {isPopupOpen && (
+                    <Popup title="Add New Book" onClose={handleClosePopup}>
+                        <form>
+                            <div className="mb-4">
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2"
+                                    placeholder="Enter Title"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author</label>
+                                <input
+                                    type="text"
+                                    id="author"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2"
+                                    placeholder="Enter Author"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="published" className="block text-sm font-medium text-gray-700">Published</label>
+                                <select
+                                    id="published"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2"
+                                >
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition duration-200"
+                                    onClick={handleClosePopup}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+                    </Popup>
+                )}
             </div>
         </DashboardLayout>
     );
