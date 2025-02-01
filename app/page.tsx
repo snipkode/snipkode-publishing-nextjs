@@ -2,11 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
 
 const Home = () => {
   const scrollToPricing = () => {
     document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const { isAuthenticated, loading } = useAuth();
 
   return (
     <>
@@ -15,10 +18,14 @@ const Home = () => {
           <div className="text-2xl font-bold text-blue-600">
             <Link href="/">SK Publishing</Link>
           </div>
-          <div className="space-x-4">
-            <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors">Mendaftar</Link>
-            <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors">Masuk</Link>
-          </div>
+          {!isAuthenticated && !loading ? ( 
+             <div className="space-x-4">
+             <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors">Mendaftar</Link>
+             <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors">Masuk</Link>
+           </div>
+          ) : (
+            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors">Dashboard Saya</Link>
+          )}
         </div>
       </header>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
