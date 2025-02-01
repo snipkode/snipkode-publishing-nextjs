@@ -17,7 +17,7 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
 1. Clone repositori:
 
     ```bash
-    git clone https://github.com/yourusername/sk-publishing.git
+    git clone https://github.com/snipkode/snipkode-publishing-nextjs.git
     cd sk-publishing
     ```
 
@@ -395,6 +395,13 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
         ) as has_permission;
     end;
     $$;
+    ```
+
+5. Eksekusi skrip SQL yang berada di folder `supabase` untuk membuat tabel dan kebijakan RLS:
+
+    ```bash
+    psql -h your-supabase-host -d your-supabase-db -U your-supabase-user -f supabase/schema.sql
+    psql -h your-supabase-host -d your-supabase-db -U your-supabase-user -f supabase/rls.sql
     ```
 
 #### Implementasi RLS
