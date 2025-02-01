@@ -16,7 +16,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SK Publishing - Terbitkan Buku & Nikmati Ribuan Bacaan",
   description: "Solusi mudah bagi penulis dan pembaca: Terbitkan karya Anda atau baca ribuan buku kapan saja, di mana saja.",
-  viewport: "width=device-width, initial-scale=1.0",
   openGraph: {
     title: "SK Publishing - Terbitkan Buku & Nikmati Ribuan Bacaan",
     description: "Solusi mudah bagi penulis dan pembaca: Terbitkan karya Anda atau baca ribuan buku kapan saja, di mana saja.",
@@ -33,6 +32,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
 };
 
 export default function RootLayout({
