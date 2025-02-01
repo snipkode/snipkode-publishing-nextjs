@@ -1,7 +1,13 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 
 const Home = () => {
+  const scrollToPricing = () => {
+    document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <header className="sticky top-0 bg-white shadow-md z-50">
@@ -25,14 +31,16 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Solusi mudah bagi penulis dan pembaca: Terbitkan karya Anda atau baca ribuan buku kapan saja, di mana saja.
+              Solusi mudah bagi penulis dan pembaca, terbitkan karya Anda atau baca ribuan buku kapan saja, di mana saja.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="group px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">
-                Terbitkan Sekarang
-                <span className="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </button>
-              <button className="group px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center border border-blue-200">
+              <Link href="/dashboard">
+                <button className="group px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">
+                  Terbitkan Sekarang
+                  <span className="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+              </Link>
+              <button onClick={scrollToPricing} className="group px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center border border-blue-200">
                 Mulai Berlangganan
                 <span className="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </button>
@@ -115,7 +123,7 @@ const Home = () => {
         </section>
 
         {/* Pricing Section */}
-        <section className="px-4 py-20 sm:px-6 lg:px-8 bg-gray-50">
+        <section id="pricing-section" className="px-4 py-20 sm:px-6 lg:px-8 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
               Pilih Paket Sesuai Kebutuhan
