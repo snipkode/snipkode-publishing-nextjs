@@ -53,18 +53,24 @@ const Register = () => {
         } else {
             // Save user role in a separate table
             if (userDetail) {
-                await supabase.from('users').insert([{
-                    role_id: role,
-                    email: email,
-                }]);
+                try {
+                    const { error: insertError } = await supabase.from('users').insert([{
+                        role_id: role,
+                        email: email,
+                    }]);
+                    if (insertError) throw insertError;
+                } catch (insertError) {
+                    setError((insertError as Error).message);
+                    return;
+                }
 
-                await supabase.from('users_detail').insert([{
-                    id: userDetail?.id,
-                    full_name: userDetail.full_name,
-                    address: userDetail.address,
-                    identity_number: userDetail.identity_number,
-                    phone_number: userDetail.phone_number,
-                }]);
+                // await supabase.from('users_detail').insert([{
+                //     id: userDetail?.id,
+                //     full_name: userDetail.full_name,
+                //     address: userDetail.address,
+                //     identity_number: userDetail.identity_number,
+                //     phone_number: userDetail.phone_number,
+                // }]);
             }
             router.push('/dashboard');
         }
