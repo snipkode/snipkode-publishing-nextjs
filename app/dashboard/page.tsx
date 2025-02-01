@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabaseClient';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@supabase/supabase-js';
 import withAuth from '@/middleware/withAuth';
 import DashboardLayout from '@/components/DashboardLayout';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const Dashboard = () => {
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,11 +25,10 @@ const Dashboard = () => {
         fetchUser();
     }, [router]);
 
-    // if (!user) return <div>Loading...</div>;
-
     return (
         <DashboardLayout>
             <div className="p-6">
+                <Breadcrumb title={"Beranda"}/>
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                     {/* Semua Buku */}

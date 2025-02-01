@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { User } from '@supabase/supabase-js';
 import withAuth from '@/middleware/withAuth';
 import DashboardLayout from '@/components/DashboardLayout';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const ManagePenerbit = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -41,16 +42,7 @@ const ManagePenerbit = () => {
     return (
         <DashboardLayout>
             <div className="p-4 sm:p-6">
-                {/* Breadcrumb */}
-                <nav className="text-gray-600 mb-4 text-sm" aria-label="Breadcrumb">
-                    <ol className="list-none p-0 inline-flex items-center">
-                        <li className="flex items-center">
-                            <a href="#">Dashboard</a>
-                            <span className="material-icons text-gray-400 mx-2" style={{ fontSize: '16px' }}>chevron_right</span>
-                        </li>
-                        <li>Manage Penerbit</li>
-                    </ol>
-                </nav>
+                <Breadcrumb title={"Manage Penerbit"}/>
 
                 {/* Main Content Container */}
                 <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">

@@ -29,7 +29,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <div className="h-full flex">
+        <div className="h-full flex bg-gray-100">
             <Sidebar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
             <main className="flex-1">
                 <Header toggleSidebar={toggleSidebar} />
