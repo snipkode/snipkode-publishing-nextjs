@@ -1,33 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from 'react';
-import { supabase } from '@/utils/supabaseClient';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User } from '@supabase/supabase-js';
 import withAuth from '@/middleware/withAuth';
 import DashboardLayout from '@/components/DashboardLayout';
 import Breadcrumb from '@/components/Breadcrumb';
 import Link from 'next/link';
-import useDashboardStore from '@/store/dashboardStore';
+import useFetchStats from '@/hooks/useFetchStats';
 
 const Dashboard = () => {
-    const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
-    const { stats, fetchStats } = useDashboardStore();
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                setUser(user);
-                fetchStats();
-            } else {
-                router.push('/auth/login');
-            }
-        };
-        fetchUser();
-    }, [router, fetchStats]);
+    const stats = useFetchStats();
 
     return (
         <DashboardLayout>
@@ -41,7 +25,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">menu_book</span>
                             <h3>Semua Buku</h3>
                         </div>
-                        <p className="text-3xl font-bold">{stats?.totalBooks}</p>
+                        <p className="text-3xl font-bold">{stats.totalBooks}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
@@ -53,7 +37,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">business</span>
                             <h3>Semua Penerbit</h3>
                         </div>
-                        <p className="text-3xl font-bold">{stats?.totalPublishers}</p>
+                        <p className="text-3xl font-bold">{stats.totalPublishers}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
@@ -65,7 +49,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">people</span>
                             <h3>Semua Pengguna</h3>
                         </div>
-                        <p className="text-3xl font-bold">{stats?.totalUsers}</p>
+                        <p className="text-3xl font-bold">{stats.totalUsers}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
@@ -80,7 +64,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">library_books</span>
                             <h3>Books Transaction</h3>
                         </div>
-                        <p className="text-3xl font-bold">{stats?.totalSales}</p>
+                        <p className="text-3xl font-bold">{stats.totalSales}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
@@ -92,7 +76,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">account_balance_wallet</span>
                             <h3>Saldo Platform</h3>
                         </div>
-                        <p className="text-2xl font-bold">Rp {stats?.platformBalance}</p>
+                        <p className="text-2xl font-bold">Rp {stats.platformBalance}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
@@ -104,7 +88,7 @@ const Dashboard = () => {
                             <span className="material-icons mr-2">trending_up</span>
                             <h3>Estimasi Pendapatan</h3>
                         </div>
-                        <p className="text-2xl font-bold">Rp {stats?.estimatedRevenue}</p>
+                        <p className="text-2xl font-bold">Rp {stats.estimatedRevenue}</p>
                         <div className="flex justify-end mt-4">
                             <Link href="#" className="text-sm hover:underline">Lihat Detail</Link>
                         </div>
