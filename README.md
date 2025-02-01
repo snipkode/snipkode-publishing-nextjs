@@ -126,7 +126,9 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
         book_id uuid references books(id), -- ID buku yang dijual
         user_id uuid references users(id), -- ID pengguna yang membeli buku
         sale_date timestamp with time zone default now(), -- Tanggal dan waktu penjualan
-        amount numeric not null -- Jumlah penjualan
+        amount numeric not null, -- Jumlah penjualan
+        midtrans_order_id text not null, -- ID pesanan Midtrans
+        midtrans_transaction_status text not null -- Status transaksi Midtrans
     );
 
     -- Tabel PagePermissions untuk menyimpan izin akses halaman buku
@@ -377,6 +379,25 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
     $$;
     ```
 
+#### Midtrans
+
+1. Buat akun Midtrans dan proyek baru.
+2. Dapatkan Server Key dan Client Key dari dashboard Midtrans.
+3. Buat file `.env.local` di direktori root proyek Anda dan tambahkan variabel lingkungan berikut:
+
+    ```env
+    MIDTRANS_SERVER_KEY=your-midtrans-server-key
+    MIDTRANS_CLIENT_KEY=your-midtrans-client-key
+    ```
+
+4. Tambahkan dependensi Midtrans ke proyek Anda:
+
+    ```bash
+    npm install midtrans-client
+    # atau
+    yarn add midtrans-client
+    ```
+
 ### Alur Bisnis
 
 1. **Registrasi dan Autentikasi Pengguna**:
@@ -400,6 +421,7 @@ SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku m
     - Penulis mendapatkan penghasilan dari penjualan buku mereka.
     - Penulis juga dapat mendapatkan penghasilan dari link afiliasi buku lain.
     - Penulis dapat memonetisasi penjualan buku per halaman dan mengatur izin akses untuk pengguna yang telah membeli halaman tertentu.
+    - Integrasi dengan Midtrans untuk memproses pembayaran dan mencatat status transaksi.
 
 6. **Penghasilan Editor**:
     - Editor mendapatkan penghasilan dari royalti penjualan buku yang mereka edit.
