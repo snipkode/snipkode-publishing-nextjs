@@ -18,6 +18,7 @@ interface MainTableProps {
 const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
+    const [itemsPerPageState, setItemsPerPageState] = useState(itemsPerPage);
 
     const filteredData = data.filter(row =>
         columns.some(column => {
@@ -26,9 +27,9 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
         })
     );
 
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const totalPages = Math.ceil(filteredData.length / itemsPerPageState);
+    const startIndex = (currentPage - 1) * itemsPerPageState;
+    const endIndex = startIndex + itemsPerPageState;
     const currentData = filteredData.slice(startIndex, endIndex);
 
     const handlePageChange = (page: number) => {
@@ -37,11 +38,16 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
         }
     };
 
+    const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setItemsPerPageState(Number(e.target.value));
+        setCurrentPage(1);
+    };
+
     return (
         <>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
                 <div className="text-sm">Semua Data ({filteredData.length})</div>
-                <div className="w-full sm:w-auto">
+                <div className="w-full sm:w-auto flex gap-2">
                     <input
                         type="text"
                         placeholder="Cari..."
@@ -49,6 +55,21 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
+                    <div className="relative">
+                        <select
+                            value={itemsPerPageState}
+                            onChange={handleItemsPerPageChange}
+                            className="border rounded-lg px-4 py-2 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 pr-8"
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={50}>50</option>
+                        </select>
+                        <span className="material-icons absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            arrow_drop_down
+                        </span>
+                    </div>
                 </div>
             </div>
 
