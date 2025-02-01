@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from 'react';
+import '@/styles/MainTable.css';
 
 interface Column {
     header: string;
@@ -14,11 +17,19 @@ interface MainTableProps {
 
 const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const filteredData = data.filter(row =>
+        columns.some(column => {
+            const value = typeof column.accessor === 'function' ? column.accessor(row, 0) : row[column.accessor];
+            return value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+        })
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentData = data.slice(startIndex, endIndex);
+    const currentData = filteredData.slice(startIndex, endIndex);
 
     const handlePageChange = (page: number) => {
         if (page > 0 && page <= totalPages) {
@@ -29,9 +40,15 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
     return (
         <>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                <div className="text-sm">Semua Data ({data.length})</div>
+                <div className="text-sm">Semua Data ({filteredData.length})</div>
                 <div className="w-full sm:w-auto">
-                    <input type="text" placeholder="Cari..." className="border rounded-lg px-4 py-2 w-full text-sm" />
+                    <input
+                        type="text"
+                        placeholder="Cari..."
+                        className="border rounded-lg px-4 py-2 w-full text-sm"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                 </div>
             </div>
 
@@ -46,7 +63,7 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="fade">
                         {currentData.length > 0 ? (
                             currentData.map((row, rowIndex) => (
                                 <tr key={row.id}>
