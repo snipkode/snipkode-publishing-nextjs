@@ -16,15 +16,27 @@ const Home = () => {
       <header className="sticky top-0 bg-white shadow-md z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="text-2xl font-bold text-blue-600">
-            <Link href="/">SK Publishing</Link>
+            <Link href="/" className="flex items-center">
+              <span className="material-icons mr-2">menu_book</span>
+              <span className="text-xl">SK Publishing</span>
+            </Link>
           </div>
           {!isAuthenticated && !loading ? ( 
-             <div className="space-x-4">
-             <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors">Mendaftar</Link>
-             <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors">Masuk</Link>
-           </div>
+            <div className="space-x-4 flex items-center">
+              <Link href="/auth/register" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                <span className="material-icons mr-1">person_add</span>
+                <span className="text-base">Mendaftar</span>
+              </Link>
+              <Link href="/auth/login" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                <span className="material-icons mr-1">login</span>
+                <span className="text-base">Masuk</span>
+              </Link>
+            </div>
           ) : (
-            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors">Dashboard Saya</Link>
+            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+              <span className="material-icons mr-1">dashboard</span>
+              <span className="text-base">Dashboard Saya</span>
+            </Link>
           )}
         </div>
       </header>
