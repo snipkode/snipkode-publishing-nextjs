@@ -52,12 +52,12 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
                 </div>
             </div>
 
-            <div className="table-responsive max-h-96 overflow-y-auto">
-                <table className="w-full border-collapse min-w-[800px]">
+            <div className="table-responsive max-h-96 overflow-y-auto overflow-x-auto">
+                <table className="w-full border-collapse min-w-[600px]">
                     <thead>
                         <tr className="bg-gray-50">
                             {columns.map((column, index) => (
-                                <th key={index} className={`border px-4 py-2 text-left text-sm font-medium ${column.className || ''}`}>
+                                <th key={index} className={`border px-4 py-2 text-left text-sm font-medium whitespace-nowrap ${column.className || ''}`}>
                                     {column.header}
                                 </th>
                             ))}
@@ -68,7 +68,7 @@ const MainTable: React.FC<MainTableProps> = ({ data, columns, itemsPerPage = 10 
                             currentData.map((row, rowIndex) => (
                                 <tr key={row.id}>
                                     {columns.map((column, colIndex) => (
-                                        <td key={colIndex} className={`border px-4 py-2 text-sm ${column.className || ''}`}>
+                                        <td key={colIndex} className={`border px-4 py-2 text-sm whitespace-nowrap ${column.className || ''}`}>
                                             {typeof column.accessor === 'function' ? column.accessor(row, rowIndex) : row[column.accessor]}
                                         </td>
                                     ))}
