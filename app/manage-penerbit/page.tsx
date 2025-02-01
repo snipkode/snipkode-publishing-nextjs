@@ -40,31 +40,73 @@ const ManagePenerbit = () => {
 
     return (
         <DashboardLayout>
-            <div className="p-6">
-                <h1 className="text-3xl font-bold mb-6">Manage Penerbit</h1>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {publishers.map((publisher) => (
-                                <tr key={publisher.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{publisher.id}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{publisher.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{publisher.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+            <div className="p-4 sm:p-6">
+                {/* Breadcrumb */}
+                <nav className="text-gray-600 mb-4 text-sm" aria-label="Breadcrumb">
+                    <ol className="list-none p-0 inline-flex items-center">
+                        <li className="flex items-center">
+                            <a href="#">Dashboard</a>
+                            <span className="material-icons text-gray-400 mx-2" style={{ fontSize: '16px' }}>chevron_right</span>
+                        </li>
+                        <li>Manage Penerbit</li>
+                    </ol>
+                </nav>
+
+                {/* Main Content Container */}
+                <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div className="flex items-center">
+                            <span className="material-icons mr-2">grid_view</span>
+                            <h1 className="text-lg sm:text-xl font-semibold">Manage Penerbit</h1>
+                        </div>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center text-sm hover:bg-blue-700 transition-colors w-full sm:w-auto justify-center">
+                            <span className="material-icons text-sm mr-1">add</span>
+                            Add New
+                        </button>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                        <div className="text-sm">Semua Penerbit (0)</div>
+                        <div className="w-full sm:w-auto">
+                            <input type="text" placeholder="Cari..." className="border rounded-lg px-4 py-2 w-full text-sm" />
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div className="table-responsive">
+                        <table className="w-full border-collapse min-w-[800px]">
+                            <thead>
+                                <tr className="bg-gray-50">
+                                    <th className="border px-4 py-2 text-left text-sm font-medium">No</th>
+                                    <th className="border px-4 py-2 text-left text-sm font-medium">Nama Penerbit</th>
+                                    <th className="border px-4 py-2 text-left text-sm font-medium">Published</th>
+                                    <th className="border px-4 py-2 text-left text-sm font-medium">Tanggal Dibuat</th>
+                                    <th className="border px-4 py-2 text-left text-sm font-medium">Dibuat Oleh</th>
+                                    <th className="border px-4 py-2 text-center text-sm font-medium w-32">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={6} className="border px-4 py-8 text-center text-gray-500 text-sm">
+                                        No data available
                                     </td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Pagination */}
+                    <div className="flex justify-center mt-6">
+                        <nav className="flex flex-wrap items-center justify-center gap-1">
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">&laquo;</button>
+                            <button className="px-3 py-1 rounded border bg-blue-600 text-white text-sm">1</button>
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">2</button>
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">3</button>
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">4</button>
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">5</button>
+                            <button className="px-3 py-1 rounded border text-sm hover:bg-gray-50 transition-colors">&raquo;</button>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </DashboardLayout>
