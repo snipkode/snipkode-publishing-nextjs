@@ -3,10 +3,7 @@ create or replace procedure pendaftaran_user(
     p_password text,
     p_role_name text,
     p_full_name text,
-    p_date_of_birth date,
-    p_address text,
-    p_phone_number text,
-    p_identity_number text
+    p_date_of_birth date
 )
 language plpgsql
 as $$
@@ -23,19 +20,16 @@ begin
     returning id into v_user_id;
 
     -- Insert into user_details table
-    insert into user_details (user_id, full_name, date_of_birth, address, phone_number, identity_number) values
-        (v_user_id, p_full_name, p_date_of_birth, p_address, p_phone_number, p_identity_number);
+    insert into user_details (user_id, full_name, date_of_birth) values
+        (v_user_id, p_full_name, p_date_of_birth);
 end;
 $$;
 
 -- Usage example:
 -- call pendaftaran_user(
---     'user@example.com',
---     'password123',
+--     'ardi@snipkode.com',
+--     '123456',
 --     'penulis',
---     'User Name',
---     '1990-01-01',
---     '123 Main St',
---     '555-1234',
---     'ID123456'
+--     'Ardi Wijaya',
+--     '2025-02-15'
 -- );
