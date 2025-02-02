@@ -2,6 +2,10 @@
 
 **Demo Aplikasi**: [https://snipub.web.app](https://snipub.web.app)
 
+**User Demo**: 
+- Email: admin@admin.com
+- Password: 123456
+
 ## Overview
 
 SK Publishing adalah platform yang memungkinkan penulis untuk menerbitkan buku mereka dan pembaca untuk mengakses berbagai buku digital. README ini memberikan instruksi tentang cara menjalankan proyek, mengonfigurasi Supabase, dan memahami alur bisnis.
