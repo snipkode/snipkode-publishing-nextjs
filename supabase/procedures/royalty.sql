@@ -29,3 +29,10 @@ begin
     insert into royalty_history (sale_id, book_id, user_id, amount, created_at) values (sale_id, book_id, 'ID-APL-00001', admin_fee, now()); -- Ganti 'admin-id' dengan ID admin sebenarnya
 end;
 $$;
+
+-- Usage example:
+-- call bagi_royalti(
+--     'sale-id-uuid',
+--     'book-id-uuid',
+--     100.00
+-- );
