@@ -42,16 +42,22 @@ const Register = () => {
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
+        const { error } = await supabase.auth.signUp({
+            email: userDetail.email,
+            password: userDetail.password
+        })
+        if(error) setError((error as Error).message);
+
         try {
             const { error: insertError } = await supabase.rpc('pendaftaran', {
-                email: userDetail.email,
-                password: userDetail.password,
-                role: userDetail.role,
-                full_name: userDetail.full_name,
-                date_of_birth: userDetail.date_of_birth,
+                p_email: userDetail.email,
+                p_password: userDetail.password,
+                p_role: userDetail.role,
+                p_full_name: userDetail.full_name,
+                p_date_of_birth: userDetail.date_of_birth,
             });
 
-            if (insertError) throw insertError;
+            if (insertError) setError((insertError as Error).message);
             router.push('/')
         } catch (insertError) {
             setError((insertError as Error).message);
